@@ -55,7 +55,7 @@ f1
 
 #Press "Run"
 #This is to define f2 (The top of the equation & the first part of the bottom of the equation)
-f2 = f*a
+f2 = f1*a
 
 
 # In[ ]:
