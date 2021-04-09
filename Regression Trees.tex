@@ -1,0 +1,452 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Precipitation Python Code using Eronen et al. (2010a) Regression Trees\n",
+    "#Data Needed: Counts of the amount of species for each hypsodont value (1,2,3) & each diet types (F,O,M,G,B)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Input your values here then press \"Run\"\n",
+    "NHYP1 = 4 #Number of brachydont species (Score = 1)\n",
+    "NHYP2 = 7 #number of mesodont species (Score = 2)\n",
+    "NHYP3 = 13 #Number of hypsodont species (Score = 3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Press \"Run\"\n",
+    "NHYP = NHYP1+NHYP2+NHYP3 #Number of total species with hypsodonty values"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "#Define proportions. Simply press \"Run\"\n",
+    "pHYP1= NHYP1/NHYP\n",
+    "pHYP2= NHYP2/NHYP\n",
+    "pHYP3= NHYP3/NHYP"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Input your values here then press \"Run\"\n",
+    "DIETF = 0 #Number of fruit eaters\n",
+    "DIETO = 1 #Number of omnivores\n",
+    "DIETG = 16 #Number of grazers\n",
+    "DIETB = 3 #Number of browsers\n",
+    "DIETM = 5 #number of mixed feeders "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Press \"Run\"\n",
+    "NDIET = DIETF+DIETO+DIETG+DIETB +DIETM  #Number of total species with diet types available for analysis"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Define proportions. Simply press \"Run\"\n",
+    "pDIETF = DIETF/NDIET\n",
+    "pDIETG = DIETG/NDIET\n",
+    "pDIETB = DIETB/NDIET\n",
+    "pDIETM = DIETM/NDIET\n",
+    "pDIETO = DIETO/NDIET"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mean annual precipitation = 200.9 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Mean Annual Precipitation hypsodonty-only regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if NHYP1 < 11.5 and pHYP3 >= 0.1938 and pHYP3>=0.4808:\n",
+    "    print(\"mean annual precipitation = 200.9 mm\")\n",
+    "elif NHYP1 < 11.5 and pHYP3 >= 0.1938 and pHYP3<0.4808 and pHYP2<0.1277:\n",
+    "    print(\"mean annual precipitation = 399.7 mm\")\n",
+    "elif NHYP1 < 11.5 and pHYP3 >= 0.1938 and pHYP3<0.4808 and pHYP2>=0.1277:\n",
+    "    print(\"mean annual precipitation = 681.6 mm\")\n",
+    "elif NHYP1 < 11.5 and pHYP3 < 0.1938 and NHYP1 <6.5:\n",
+    "    print(\"mean annual precipitation = 733.1 mm\")\n",
+    "elif NHYP1 < 11.5 and pHYP3 < 0.1938 and NHYP1 >=6.5:\n",
+    "    print(\"mean annual precipitation = 1405 mm\")\n",
+    "elif NHYP1 >= 11.5 and NHYP3 >=3.5 and pHYP3 >= 0.3168: \n",
+    "    print(\"mean annual precipitation = 881.8 mm\")\n",
+    "elif NHYP1 >= 11.5 and NHYP3 >=3.5 and pHYP3 <0.3168: \n",
+    "    print(\"mean annual precipitation = 1426 mm mm\")\n",
+    "else:\n",
+    "    print(\"mean annual precipitation = 1939 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 89,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mean annual precipitation = 978.2 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Mean Annual Precipitation diet-only regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pDIETF < 0.1404 and pDIETM >= 0.2393 and pDIETB<0.2029:\n",
+    "    print(\"mean annual precipitation = 289.2 mm\")\n",
+    "elif pDIETF < 0.1404 and pDIETM >= 0.2393 and pDIETB>=0.2029:\n",
+    "    print(\"mean annual precipitation = 505.3 mm\")\n",
+    "elif pDIETF < 0.1404 and pDIETM < 0.2393:\n",
+    "    print(\"mean annual precipitation = 978.2 mm\")\n",
+    "elif pDIETF >= 0.1404 and pDIETM >= 0.1791 and pDIETM >=0.7321:\n",
+    "    print(\"mean annual precipitation = 96.35 mm\")\n",
+    "elif pDIETF >= 0.1404 and pDIETM >= 0.1791 and pDIETM <0.7321:\n",
+    "    print(\"mean annual precipitation = 1249 mm\")\n",
+    "elif pDIETF >= 0.1404 and pDIETM < 0.1791 and DIETO < 2.5:\n",
+    "    print(\"mean annual precipitation = 1526 mm\")\n",
+    "elif pDIETF >= 0.1404 and pDIETM < 0.1791 and DIETO >= 2.5 and DIETG >= 1.5:\n",
+    "    print(\"mean annual precipitation = 1475 mm\")\n",
+    "else:\n",
+    "    print(\"mean annual precipitation = 2253 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mean annual precipitation = 214.6 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Mean Annual Precipitation hypsodonty and diet regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pDIETF < 0.1404 and pHYP3 >= 0.4919:\n",
+    "    print(\"mean annual precipitation = 214.6 mm\")\n",
+    "elif pDIETF < 0.1404 and pHYP3 < 0.4919 and pDIETM>=0.2393 and pHYP3>=0.1339:\n",
+    "    print(\"mean annual precipitation = 462.2 mm\")\n",
+    "elif pDIETF < 0.1404 and pHYP3 < 0.4919 and pDIETM>=0.2393 and pHYP3<0.1339:\n",
+    "    print(\"mean annual precipitation = 703.9 mm\")\n",
+    "elif pDIETF < 0.1404 and pHYP3 < 0.4919 and pDIETM<0.2393:\n",
+    "    print(\"mean annual precipitation = 988.8 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 >= 0.2929 and pHYP1 <0.3375:\n",
+    "    print(\"mean annual precipitation = 145 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 >= 0.2929 and pHYP1 >=0.3375:\n",
+    "    print(\"mean annual precipitation = 983.5 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 < 0.2929 and pDIETF < 0.5417 and pDIETF < 0.2053:\n",
+    "    print(\"mean annual precipitation = 1346 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 < 0.2929 and pDIETF < 0.5417 and pDIETF >= 0.2053 and pDIETO < 0.1559:\n",
+    "    print(\"mean annual precipitation = 1592 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 < 0.2929 and pDIETF < 0.5417 and pDIETF >= 0.2053 and pDIETO >= 0.1559 and pHYP2<0.04881 and pDIETM >=0.09545:\n",
+    "    print(\"mean annual precipitation = 1211 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 < 0.2929 and pDIETF < 0.5417 and pDIETF >= 0.2053 and pDIETO >= 0.1559 and pHYP2<0.04881 and pDIETM <0.09545:\n",
+    "    print(\"mean annual precipitation = 2074 mm\")\n",
+    "elif pDIETF >= 0.1404 and pHYP3 < 0.2929 and pDIETF < 0.5417 and pDIETF >= 0.2053 and pDIETO >= 0.1559 and pHYP2>=0.04881:\n",
+    "    print(\"mean annual precipitation = 2578 mm\")\n",
+    "else:\n",
+    "    print(\"mean annual precipitation = 2561 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 116,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mean annual precipitation = 97.16 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Wettest quarter precipitation hypsodonty only regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if NHYP1<6.5 and pHYP3>=0.4143:\n",
+    "    print(\"wettest quarter precipitation = 97.16 mm\")\n",
+    "elif NHYP1<6.5 and pHYP3<0.4143 and NHYP2<1.5:\n",
+    "    print(\"wettest quarter precipitation = 222.4 mm\")\n",
+    "elif NHYP1<6.5 and pHYP3<0.4143 and NHYP2>=1.5 and pHYP1<0.6458 and NHYP2<2.5:\n",
+    "    print(\"wettest quarter precipitation = 436.7 mm\")\n",
+    "elif NHYP1<6.5 and pHYP3<0.4143 and NHYP2>=1.5 and pHYP1<0.6458 and NHYP2>=2.5:\n",
+    "    print(\"wettest quarter precipitation = 882.2 mm\")\n",
+    "elif NHYP1<6.5 and pHYP3<0.4143 and NHYP2>=1.5 and pHYP1>=0.6458:\n",
+    "    print(\"wettest quarter precipitation = 1397 mm\")\n",
+    "elif NHYP1>=6.5 and pHYP1<0.5683 and pHYP2>=0.1091 and pHYP3>=0.4015:\n",
+    "    print(\"wettest quarter precipitation = 274.4 mm\")\n",
+    "elif NHYP1>=6.5 and pHYP1<0.5683 and pHYP2>=0.1091 and pHYP3<0.4015:\n",
+    "    print(\"wettest quarter precipitation = 565.9 mm\")\n",
+    "elif NHYP1>=6.5 and pHYP1<0.5683 and pHYP2<0.1091:\n",
+    "    print(\"wettest quarter precipitation = 542.6 mm\")\n",
+    "elif NHYP1>=6.5 and pHYP1>=0.5683 and NHYP<12.5:\n",
+    "    print(\"wettest quarter precipitation = 587.9 mm\")\n",
+    "else:\n",
+    "    print(\"wettest quarter precipitation = 799.4 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 117,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "wettest quarter precipitation = 74.46 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Wettest quarter precipitation diet type only regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pDIETF<0.1404 and DIETF<0.5 and pDIETB<0.1548:\n",
+    "    print(\"wettest quarter precipitation = 74.46 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF<0.5 and pDIETB>=0.1548 and DIETM>=1.5:\n",
+    "    print(\"wettest quarter precipitation = 185.6 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF<0.5 and pDIETB>=0.1548 and DIETM<1.5:\n",
+    "    print(\"wettest quarter precipitation = 305.1 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF>=0.5 and pDIETM>=0.2393:\n",
+    "    print(\"wettest quarter precipitation = 333.3 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF>=0.5 and pDIETM<0.2393:\n",
+    "    print(\"wettest quarter precipitation = 584.3 mm\")\n",
+    "elif pDIETF>=0.1404 and pDIETO<0.01786:\n",
+    "    print(\"wettest quarter precipitation = 239.9 mm\")\n",
+    "elif pDIETF>=0.1404 and pDIETO>=0.01786 and pDIETM>=0.08514 and NDIET<11.5:\n",
+    "    print(\"wettest quarter precipitation = 527.3 mm\")\n",
+    "elif pDIETF>=0.1404 and pDIETO>=0.01786 and pDIETM>=0.08514 and NDIET>=11.5 and DIETB>=0.5:\n",
+    "    print(\"wettest quarter precipitation = 712.5 mm\")\n",
+    "elif pDIETF>=0.1404 and pDIETO>=0.01786 and pDIETM>=0.08514 and NDIET>=11.5 and DIETB<0.5:\n",
+    "    print(\"wettest quarter precipitation = 1244 mm\")\n",
+    "else:\n",
+    "    print(\"wettest quarter precipitation = 888.3 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 118,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "wettest quarter precipitation = 88.27 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Wettest quarter precipitation hypsodonty and diet type regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pDIETF<0.1404 and DIETF<0.5 and pHYP3>=0.4143:\n",
+    "    print(\"wettest quarter precipitation = 88.27 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF<0.5 and pHYP3<0.4143:\n",
+    "    print(\"wettest quarter precipitation = 223 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF>=0.5 and pHYP3>=0.4059 and DIETG<9.5:\n",
+    "    print(\"wettest quarter precipitation = 230.8 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF>=0.5 and pHYP3>=0.4059 and DIETG>=9.5:\n",
+    "    print(\"wettest quarter precipitation = 564.4 mm\")\n",
+    "elif pDIETF<0.1404 and DIETF>=0.5 and pHYP3<0.4059:\n",
+    "    print(\"wettest quarter precipitation = 551.9 mm\")\n",
+    "elif pDIETF>=0.1404 and pHYP1<0.3167:\n",
+    "    print(\"wettest quarter precipitation = 75.32 mm\")\n",
+    "elif pDIETF>=0.1404 and pHYP1>=0.3167 and pDIETM>=0.08514 and pHYP2<0.1571 and NHYP<13.5:\n",
+    "    print(\"wettest quarter precipitation = 452.6 mm\")\n",
+    "elif pDIETF>=0.1404 and pHYP1>=0.3167 and pDIETM>=0.08514 and pHYP2<0.1571 and NHYP>=13.5:\n",
+    "    print(\"wettest quarter precipitation = 707.4 mm\")\n",
+    "elif pDIETF>=0.1404 and pHYP1>=0.3167 and pDIETM>=0.08514 and pHYP2>=0.1571:\n",
+    "    print(\"wettest quarter precipitation = 1022 mm\")\n",
+    "else:\n",
+    "    print(\"wettest quarter precipitation = 882.7 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 119,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "driest quarter precipitation = 14.98 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Driest quarter precipitation hypsodonty only regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pHYP3>=0.1181 and pHYP3>=0.3798:\n",
+    "    print(\"driest quarter precipitation = 14.98 mm\")\n",
+    "elif pHYP3>=0.1181 and pHYP3<0.3798:\n",
+    "    print(\"driest quarter precipitation = 50.98 mm\")\n",
+    "elif pHYP3<0.1181 and NHYP1<14.5:\n",
+    "    print(\"driest quarter precipitation = 113.8 mm\")\n",
+    "elif pHYP3<0.1181 and NHYP1>=14.5 and pHYP3<0.04058 and NHYP<21.5 and NHYP1>=20.5:\n",
+    "    print(\"driest quarter precipitation = 84.25 mm\")\n",
+    "elif pHYP3<0.1181 and NHYP1>=14.5 and pHYP3<0.04058 and NHYP<21.5 and NHYP1<20.5:\n",
+    "    print(\"driest quarter precipitation = 206.2 mm\")\n",
+    "elif pHYP3<0.1181 and NHYP1>=14.5 and pHYP3<0.04058 and NHYP>=21.5 and NHYP>=24.5:\n",
+    "    print(\"driest quarter precipitation = 175.3 mm\")\n",
+    "elif pHYP3<0.1181 and NHYP1>=14.5 and pHYP3<0.04058 and NHYP>=21.5 and NHYP<24.5:\n",
+    "    print(\"driest quarter precipitation = 312.2 mm\")\n",
+    "elif pHYP3<0.1181 and NHYP1>=14.5 and pHYP3>=0.04058:\n",
+    "    print(\"driest quarter precipitation = 208.1 mm\")\n",
+    "else:\n",
+    "    print(\"driest quarter precipitation = 493 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 120,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "driest quarter precipitation = 9.946 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Driest quarter precipitation diet type only regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pDIETF<0.3141 and pDIETB<0.3515 and pDIETG>=0.1952:\n",
+    "    print(\"driest quarter precipitation = 9.946 mm\")\n",
+    "elif pDIETF<0.3141 and pDIETB<0.3515 and pDIETG<0.1952 and DIETO<3.5:\n",
+    "    print(\"driest quarter precipitation = 43.41 mm\")\n",
+    "elif pDIETF<0.3141 and pDIETB<0.3515 and pDIETG<0.1952 and DIETO>=3.5:\n",
+    "    print(\"driest quarter precipitation = 315.7 mm\")\n",
+    "elif pDIETF<0.3141 and pDIETB>=0.3515 and NDIET<16.5 and pDIETB<0.5192:\n",
+    "    print(\"driest quarter precipitation = 77.08 mm\")\n",
+    "elif pDIETF<0.3141 and pDIETB>=0.3515 and NDIET<16.5 and pDIETB>=0.5192:\n",
+    "    print(\"driest quarter precipitation = 135.3 mm\")\n",
+    "elif pDIETF<0.3141 and pDIETB>=0.3515 and NDIET>=16.5 and pDIETO<.1471:\n",
+    "    print(\"driest quarter precipitation = 117.3 mm\")\n",
+    "elif pDIETF<0.3141 and pDIETB>=0.3515 and NDIET>=16.5 and pDIETO>=.1471:\n",
+    "    print(\"driest quarter precipitation = 544.7 mm\")\n",
+    "elif pDIETF>=0.3141 and pDIETF<0.5417 and pDIETG >=0.06275:\n",
+    "    print(\"driest quarter precipitation = 36.43 mm\")\n",
+    "elif pDIETF>=0.3141 and pDIETF<0.5417 and pDIETG<0.06275:\n",
+    "    print(\"driest quarter precipitation = 173.1 mm\")\n",
+    "elif pDIETF>=0.3141 and pDIETF<0.5417 and pDIETO < 0.1603:\n",
+    "    print(\"driest quarter precipitation = 234.1 mm\")\n",
+    "else:\n",
+    "    print(\"driest quarter precipitation = 416.4 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 121,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "driest quarter precipitation = 14.98 mm\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Driest quarter precipitation hypsodonty and diet type regression tree\n",
+    "#Press \"Run\" - Output will be the result of the regression tree. \n",
+    "if pHYP3>=0.1181 and pHYP3>=0.3798:\n",
+    "    print(\"driest quarter precipitation = 14.98 mm\")\n",
+    "elif pHYP3>=0.1181 and pHYP3<0.3798:\n",
+    "    print(\"driest quarter precipitation = 50.98 mm\")\n",
+    "elif pHYP3<0.1181 and NDIET<16.5 and pDIETF<0.5479 and DIETM>=1.5:\n",
+    "    print(\"driest quarter precipitation = 92.02 mm\")\n",
+    "elif pHYP3<0.1181 and NDIET<16.5 and pDIETF<0.5479 and DIETM<1.5:\n",
+    "    print(\"driest quarter precipitation = 133.3 mm\")\n",
+    "elif pHYP3<0.1181 and NDIET<16.5 and pDIETF>=0.5479:\n",
+    "    print(\"driest quarter precipitation = 376 mm\")\n",
+    "elif pHYP3<0.1181 and NDIET>=16.5 and NHYP>=24.5:\n",
+    "    print(\"driest quarter precipitation = 172.1 mm\")\n",
+    "elif pHYP3<0.1181 and NDIET>=16.5 and NHYP<24.5 and pDIETO<0.1539:\n",
+    "    print(\"driest quarter precipitation = 207.5 mm\")\n",
+    "else:\n",
+    "    print(\"driest quarter precipitation = 443.5 mm\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
